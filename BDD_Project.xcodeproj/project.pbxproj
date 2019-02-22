@@ -16,6 +16,7 @@
 		083CD34C22203C090096D4DB /* Second.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 083CD34B22203C090096D4DB /* Second.storyboard */; };
 		083CD34F22203C450096D4DB /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083CD34E22203C450096D4DB /* DataManager.swift */; };
 		083CD3512220460D0096D4DB /* SecondController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083CD3502220460D0096D4DB /* SecondController.swift */; };
+		083CD35322205C370096D4DB /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083CD35222205C370096D4DB /* ListItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		083CD34B22203C090096D4DB /* Second.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Second.storyboard; sourceTree = "<group>"; };
 		083CD34E22203C450096D4DB /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		083CD3502220460D0096D4DB /* SecondController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondController.swift; sourceTree = "<group>"; };
+		083CD35222205C370096D4DB /* ListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				083CD34922200A610096D4DB /* Item.swift */,
+				083CD35222205C370096D4DB /* ListItemCell.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 			files = (
 				083CD337221FEF1B0096D4DB /* ViewController.swift in Sources */,
 				083CD34F22203C450096D4DB /* DataManager.swift in Sources */,
+				083CD35322205C370096D4DB /* ListItemCell.swift in Sources */,
 				083CD34A22200A610096D4DB /* Item.swift in Sources */,
 				083CD335221FEF1B0096D4DB /* AppDelegate.swift in Sources */,
 				083CD3512220460D0096D4DB /* SecondController.swift in Sources */,

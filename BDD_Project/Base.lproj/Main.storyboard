@@ -22,15 +22,37 @@
                                 <rect key="frame" x="0.0" y="120" width="375" height="547"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="CellIdentifier" id="Anv-CX-IO1">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="listItemCell" id="Anv-CX-IO1" customClass="ListItemCell" customModule="BDD_Project" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Anv-CX-IO1" id="qTO-xX-3bd">
                                             <rect key="frame" x="0.0" y="0.0" width="308" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="✔️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHa-rK-8Ge">
+                                                    <rect key="frame" x="15" y="11.5" width="23" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mnt-gh-Lxn">
+                                                    <rect key="frame" x="46" y="22" width="0.0" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Mnt-gh-Lxn" firstAttribute="leading" secondItem="zHa-rK-8Ge" secondAttribute="trailing" constant="8" id="Uu8-nG-LNW"/>
+                                                <constraint firstItem="Mnt-gh-Lxn" firstAttribute="centerY" secondItem="qTO-xX-3bd" secondAttribute="centerY" id="VsL-fP-rtH"/>
+                                                <constraint firstItem="zHa-rK-8Ge" firstAttribute="centerY" secondItem="qTO-xX-3bd" secondAttribute="centerY" id="mQB-dD-e3i"/>
+                                                <constraint firstItem="zHa-rK-8Ge" firstAttribute="leading" secondItem="qTO-xX-3bd" secondAttribute="leadingMargin" id="opP-jG-h9A"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DWA-3q-QWM" kind="showDetail" trigger="accessoryAction" id="ABR-WD-w5z"/>
+                                            <outlet property="checkItem" destination="zHa-rK-8Ge" id="mIc-Kh-NhA"/>
+                                            <outlet property="labelItem" destination="Mnt-gh-Lxn" id="zFp-8s-JW0"/>
+                                            <segue destination="DWA-3q-QWM" kind="show" trigger="accessoryAction" id="jLP-2Q-hLu"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

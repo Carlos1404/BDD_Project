@@ -51,17 +51,28 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellIdentifier")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: ListItemCell.identifier) as! ListItemCell
         if searching {
-            cell.textLabel?.text = self.searchItems[indexPath.row].text
+            configureText(for: cell, withItem: self.searchItems[indexPath.row])
+            configureCheckmark(for: cell, withItem: self.searchItems[indexPath.row])
         } else {
-            cell.textLabel?.text = self.items[indexPath.row].text
+            configureText(for: cell, withItem: self.items[indexPath.row])
+            configureCheckmark(for: cell, withItem: self.items[indexPath.row])
         }
-        /*if(self.items[indexPath.row].checked){
-            cell.accessoryType = UITableViewCell.AccessoryType.checkmark
-        }
-        else { cell.accessoryType = UITableViewCell.AccessoryType.none }*/
+        
         return cell
+    }
+    
+    func configureCheckmark(for cell: ListItemCell, withItem item: Item){
+        if(item.checked){
+            cell.checkItem.isHidden = false
+        } else {
+            cell.checkItem.isHidden = true
+        }
+    }
+    
+    func configureText(for cell: ListItemCell, withItem item: Item){
+        cell.labelItem.text = item.text
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -103,8 +114,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 extension ViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchItems = items.filter({$0.text.lowercased().prefix(searchText.count) == searchText.lowercased()})
-        self.searching = true
+        if searchText.isEmpty{
+            self.searching = false
+        } else {
+            searchItems = items.filter({$0.text.lowercased().prefix(searchText.count) == searchText.lowercased()})
+            self.searching = true
+        }
+        self.tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searching = false
         self.tableView.reloadData()
     }
 }
