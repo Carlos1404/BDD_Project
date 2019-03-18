@@ -16,17 +16,32 @@ class ListItemCell: UITableViewCell {
             //wrapping
             guard let newItem = item else {
                 checkItem.isHidden = false
-                labelItem.text = ""
+                titleItem.text = ""
+                dateItem.text = ""
                 return
             }
             checkItem.isHidden = !newItem.checked
-            labelItem.text = newItem.title
+            titleItem.text = newItem.title
+            dateItem.text = getStringOfDate(date: newItem.creationDate)
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    func getStringOfDate(date: Date?) -> String {
+        // initialize the date formatter and set the style
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.dateStyle = .medium
+        
+        if let date = date {
+            return formatter.string(from: date)
+        } else {
+            return ""
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

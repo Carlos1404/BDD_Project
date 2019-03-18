@@ -38,23 +38,6 @@ class ViewController: UIViewController {
         self.items = coreDataManager.loadChecklistItems()
         tableView.reloadData()
     }
-    
-    //MARK: Actions
-    @IBAction func addItem(_ sender: Any) {
-        
-        let alertController = UIAlertController(title: "Add Item", message: "Write the name of the new item", preferredStyle: UIAlertController.Style.alert)
-        let okAction = UIAlertAction(title: "OK", style: .default){ (action) in
-            if let text = alertController.textFields?.first?.text, !text.isEmpty {
-                self.coreDataManager.saveChecklistItem(title: text)
-                self.reloadData()
-            }
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        alertController.addTextField()
-        present(alertController, animated: true, completion: nil)
-    }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -68,7 +51,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func configureCheckmark(for cell: ListItemCell, withItem item: Item){
+    func configureCheckmark(for cell: ListItemCell, withItem item: ItemList){
         if(item.checked){
             cell.checkItem.isHidden = false
         } else {
@@ -76,7 +59,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func configureText(for cell: ListItemCell, withItem item: Item){
+    func configureText(for cell: ListItemCell, withItem item: ItemList){
         cell.titleItem.text = item.title
         cell.dateItem.text = getStringOfDate(date: item.creationDate)
     }
@@ -96,8 +79,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        self.items[indexPath.row].checked = !self.items[indexPath.row].checked
         self.tableView.reloadRows(at: [indexPath], with: .automatic)
-        self.coreDataManager.saveChecklistItemsCDM(items: self.items)
     }
     
     //MARK: Swipe Item
@@ -115,23 +98,23 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return [deleteAction, editAction]
     }
     
-    func addItem(item: Item){
-        self.items.append(item)
-        self.tableView.insertRows(at: [IndexPath(row: self.items.count - 1, section: 0)], with: .automatic)
-        print(self.items.count)
+    func addItem(item: ItemList){
+        /*self.tableView.insertRows(at: [IndexPath(row: self.items.count - 1, section: 0)], with: .automatic)
+        print(self.items.count)*/
+        self.coreDataManager.saveChecklistItem()
+        self.reloadData()
     }
 }
 
 extension ViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty{
+        /*if searchText.isEmpty{
             self.searching = false
         } else {
             searchItems = items.filter({$0.title.lowercased().prefix(searchText.count) == searchText.lowercased()})
             self.searching = true
         }
-        self.tableView.reloadData()
- */
+        self.tableView.reloadData()*/
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -145,12 +128,12 @@ extension ViewController: SecondControllerDelegate {
         dismiss(animated: true)
     }
     
-    func itemDetailViewController(_ controller: SecondController, didFinishAddingItem item: Item) {
+    @objc(itemDetailViewController:didFinishAddingItemList:) func itemDetailViewController(_ controller: SecondController, didFinishAddingItemList item: ItemList) {
         self.addItem(item: item)
         dismiss(animated: true)
     }
     
-    func itemDetailViewController(_ controller: SecondController, didFinishEditingItem item: Item) {
+    func itemDetailViewController(_ controller: SecondController, didFinishEditingItem item: ItemList) {
         let indexPath = self.items.index(where: { $0 === item})
         self.items[indexPath!] = item
         tableView.reloadRows(at: [IndexPath(item: indexPath!, section: 0)], with: UITableView.RowAnimation.automatic)

@@ -13,7 +13,7 @@ class SecondController: UITableViewController {
     
     var delegate: SecondControllerDelegate?
     
-    var itemToEdit: Item?
+    var itemToEdit: ItemList?
     var currentDate: Date?
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var titleTextField: UITextField!
@@ -28,10 +28,14 @@ class SecondController: UITableViewController {
     @IBAction func doneAction(_ sender: Any) {
         if let itemToEdit = itemToEdit {
             itemToEdit.title = self.titleTextField.text!
-            itemToEdit.description = self.descriptionTextField.text!
+            itemToEdit.descriptions = self.descriptionTextField.text!
             delegate?.itemDetailViewController(self, didFinishEditingItem: itemToEdit)
         } else {
-            delegate?.itemDetailViewController(self, didFinishAddingItem: Item(title: titleTextField.text!, description: descriptionTextField.text!, creationDate: self.currentDate, modificationDate: nil, image: nil))
+            let itemList = ItemList(context: AppDelegate.viewContext)
+            itemList.title = titleTextField.text!
+            itemList.descriptions = descriptionTextField.text!
+            itemList.creationDate = self.currentDate
+            delegate?.itemDetailViewController(self, didFinishAddingItemList: itemList)
         }
     }
     
@@ -48,7 +52,7 @@ class SecondController: UITableViewController {
         } else {
             self.title = "Edition"
             titleTextField.text = itemToEdit?.title
-            descriptionTextField.text = itemToEdit?.description ?? ""
+            descriptionTextField.text = itemToEdit?.descriptions ?? ""
             self.creationDate.text = getStringOfDate(date: itemToEdit?.creationDate)
             self.currentDate = getCurrentDate()
             self.modificationDate.text = getStringOfDate(date: currentDate)
@@ -83,8 +87,8 @@ class SecondController: UITableViewController {
 
 protocol SecondControllerDelegate : class {
     func itemDetailViewControllerDidCancel(_ controller: SecondController)
-    func itemDetailViewController(_ controller: SecondController, didFinishAddingItem item: Item)
-    func itemDetailViewController(_ controller:SecondController,didFinishEditingItem item: Item)
+    func itemDetailViewController(_ controller: SecondController, didFinishAddingItemList item: ItemList)
+    func itemDetailViewController(_ controller:SecondController,didFinishEditingItem item: ItemList)
 }
 
 extension SecondController: UITextFieldDelegate {

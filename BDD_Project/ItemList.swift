@@ -10,5 +10,4 @@ import Foundation
 import UIKit
 import CoreData
 
-class ItemList: NSManagedObject {
-}
+class ItemList: NSManagedObject {}

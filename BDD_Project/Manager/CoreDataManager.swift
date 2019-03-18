@@ -37,13 +37,7 @@ class CoreDataManager {
     }
     
     //save item
-    func saveChecklistItem(title: String) {
-        let itemList = ItemList(context: AppDelegate.viewContext)
-        itemList.title = title
-        //itemList.descriptions = item.descriptions
-        //itemList.creationDate = item.creationDate
-        //itemList.modificationDate = item.modificationDate
-        itemList.checked = false
+    func saveChecklistItem() {
         try? AppDelegate.viewContext.save()
     }
     
