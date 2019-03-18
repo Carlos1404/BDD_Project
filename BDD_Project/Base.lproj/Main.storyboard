@@ -30,29 +30,42 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="✔️" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHa-rK-8Ge">
-                                                    <rect key="frame" x="15" y="11.5" width="23" height="20.5"/>
+                                                    <rect key="frame" x="15" y="10.5" width="23" height="23"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="zHa-rK-8Ge" secondAttribute="height" multiplier="25:25" id="lTE-c3-C71"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mnt-gh-Lxn">
-                                                    <rect key="frame" x="46" y="22" width="0.0" height="0.0"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mnt-gh-Lxn">
+                                                    <rect key="frame" x="46" y="0.0" width="262" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r92-l6-Dyg" userLabel="Date">
+                                                    <rect key="frame" x="46" y="25.5" width="262" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="Mnt-gh-Lxn" firstAttribute="top" secondItem="qTO-xX-3bd" secondAttribute="top" id="0z9-RB-g37"/>
+                                                <constraint firstAttribute="trailing" secondItem="Mnt-gh-Lxn" secondAttribute="trailing" id="39z-Mw-sGO"/>
+                                                <constraint firstAttribute="trailing" secondItem="r92-l6-Dyg" secondAttribute="trailing" id="77p-EV-98s"/>
                                                 <constraint firstItem="Mnt-gh-Lxn" firstAttribute="leading" secondItem="zHa-rK-8Ge" secondAttribute="trailing" constant="8" id="Uu8-nG-LNW"/>
-                                                <constraint firstItem="Mnt-gh-Lxn" firstAttribute="centerY" secondItem="qTO-xX-3bd" secondAttribute="centerY" id="VsL-fP-rtH"/>
                                                 <constraint firstItem="zHa-rK-8Ge" firstAttribute="centerY" secondItem="qTO-xX-3bd" secondAttribute="centerY" id="mQB-dD-e3i"/>
+                                                <constraint firstAttribute="bottom" secondItem="r92-l6-Dyg" secondAttribute="bottom" id="nDE-EO-kNb"/>
                                                 <constraint firstItem="zHa-rK-8Ge" firstAttribute="leading" secondItem="qTO-xX-3bd" secondAttribute="leadingMargin" id="opP-jG-h9A"/>
+                                                <constraint firstItem="r92-l6-Dyg" firstAttribute="leading" secondItem="zHa-rK-8Ge" secondAttribute="trailing" constant="8" id="rKk-8D-u27"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="checkItem" destination="zHa-rK-8Ge" id="mIc-Kh-NhA"/>
-                                            <outlet property="labelItem" destination="Mnt-gh-Lxn" id="zFp-8s-JW0"/>
-                                            <segue destination="DWA-3q-QWM" kind="show" trigger="accessoryAction" id="jLP-2Q-hLu"/>
+                                            <outlet property="dateItem" destination="r92-l6-Dyg" id="jl0-kY-RIP"/>
+                                            <outlet property="titleItem" destination="Mnt-gh-Lxn" id="zFp-8s-JW0"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -82,14 +95,20 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="List" id="3Jn-GG-ybQ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="2tq-jS-Ver">
-                            <connections>
-                                <action selector="addItem:" destination="BYZ-38-t0r" id="GHg-aH-1jg"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Category" id="Nc2-ot-aJ6"/>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="2tq-jS-Ver">
+                                <connections>
+                                    <action selector="addItem:" destination="BYZ-38-t0r" id="GHg-aH-1jg"/>
+                                    <segue destination="DWA-3q-QWM" kind="show" identifier="AddItem" id="ZOg-kK-5iT"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Sort" id="91l-6e-zs4"/>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="2wx-Hs-I2d" id="bpZ-ve-diM"/>
+                        <segue destination="DWA-3q-QWM" kind="show" identifier="EditItem" id="2lS-QV-Ilb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -123,4 +142,7 @@
             <point key="canvasLocation" x="-34.399999999999999" y="-171.36431784107947"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="2lS-QV-Ilb"/>
+    </inferredMetricsTieBreakers>
 </document>

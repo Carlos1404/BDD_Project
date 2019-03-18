@@ -24,5 +24,6 @@ class ListItemCell: UITableViewCell {
     }
     
     @IBOutlet weak var checkItem: UILabel!
-    @IBOutlet weak var labelItem: UILabel!
+    @IBOutlet weak var titleItem: UILabel!
+    @IBOutlet weak var dateItem: UILabel!
 }

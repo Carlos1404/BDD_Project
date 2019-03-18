@@ -8,8 +8,25 @@ class ViewController: UIViewController {
     var items = [Item]()
     var searchItems = [Item]()
     var searching = false
+    var editIndexPath: Int?
     
     let dataManager = DataManager()
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "AddItem" {
+            let navVC = segue.destination as! UINavigationController
+            let destVC = navVC.topViewController as! SecondController
+            destVC.delegate = self
+        }
+        else if segue.identifier == "EditItem"{
+            let navVC = segue.destination as! UINavigationController
+            let destVC = navVC.topViewController as! SecondController
+            if let indexPath = editIndexPath { destVC.itemToEdit = self.items[indexPath] }
+            destVC.delegate = self
+        }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,23 +36,7 @@ class ViewController: UIViewController {
     //MARK: Actions
 
     @IBAction func addItem(_ sender: Any) {
-        let alertController = UIAlertController(title: "Add Item", message: "Write the name of the new item", preferredStyle: UIAlertController.Style.alert)
         
-        let okAction = UIAlertAction(title: "OK", style: .default){ (action) in
-            if let text = alertController.textFields?.first?.text, !text.isEmpty {
-                self.items.append(Item(text: text))
-                self.tableView.reloadData()
-                self.dataManager.saveChecklistItems(list: self.items)
-            }
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        alertController.addTextField()
-        
-        present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -72,7 +73,21 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func configureText(for cell: ListItemCell, withItem item: Item){
-        cell.labelItem.text = item.text
+        cell.titleItem.text = item.title
+        cell.dateItem.text = getStringOfDate(date: item.creationDate)
+    }
+    
+    func getStringOfDate(date: Date?) -> String {
+        // initialize the date formatter and set the style
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.dateStyle = .medium
+        
+        if let date = date {
+            return formatter.string(from: date)
+        } else {
+            return ""
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -86,19 +101,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { (action, indexPath) in
-            
-            let alert = UIAlertController(title: "Edit", message: "Edit list item", preferredStyle: .alert)
-            alert.addTextField(configurationHandler: { (textItem) in
-                textItem.text = self.items[indexPath.row].text
-            })
-            alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
-                self.items[indexPath.row].text = alert.textFields!.first!.text!
-                self.tableView.reloadRows(at: [indexPath], with: .fade)
-                self.dataManager.saveChecklistItems(list: self.items)
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            self.present(alert, animated: false)
-            
+            self.editIndexPath = indexPath.row
+            self.performSegue(withIdentifier: "EditItem", sender: self)
         })
         
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete"){(action, indexPath) in
@@ -109,6 +113,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         return [deleteAction, editAction]
     }
+    
+    func addItem(item: Item){
+        self.items.append(item)
+        self.tableView.insertRows(at: [IndexPath(row: self.items.count - 1, section: 0)], with: .automatic)
+        print(self.items.count)
+    }
 }
 
 extension ViewController: UISearchBarDelegate {
@@ -117,7 +127,7 @@ extension ViewController: UISearchBarDelegate {
         if searchText.isEmpty{
             self.searching = false
         } else {
-            searchItems = items.filter({$0.text.lowercased().prefix(searchText.count) == searchText.lowercased()})
+            searchItems = items.filter({$0.title.lowercased().prefix(searchText.count) == searchText.lowercased()})
             self.searching = true
         }
         self.tableView.reloadData()
@@ -126,5 +136,23 @@ extension ViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.searching = false
         self.tableView.reloadData()
+    }
+}
+
+extension ViewController: SecondControllerDelegate {
+    func itemDetailViewControllerDidCancel(_ controller: SecondController) {
+        dismiss(animated: true)
+    }
+    
+    func itemDetailViewController(_ controller: SecondController, didFinishAddingItem item: Item) {
+        self.addItem(item: item)
+        dismiss(animated: true)
+    }
+    
+    func itemDetailViewController(_ controller: SecondController, didFinishEditingItem item: Item) {
+        let indexPath = self.items.index(where: { $0 === item})
+        self.items[indexPath!] = item
+        tableView.reloadRows(at: [IndexPath(item: indexPath!, section: 0)], with: UITableView.RowAnimation.automatic)
+        dismiss(animated: true)
     }
 }

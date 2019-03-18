@@ -7,14 +7,23 @@
 //
 
 import Foundation
+import UIKit
 
 class Item: Codable {
     
-    var text: String
+    var title: String
+    var description: String?
+    var creationDate: Date?
+    var modificationDate: Date?
+    var image: URL?
     var checked: Bool
     
-    init(text: String, checked: Bool = false) {
-        self.text = text
+    init(title: String, description: String?, creationDate: Date?, modificationDate: Date?, image: URL?, checked: Bool = false) {
+        self.title = title
+        self.description = description
+        self.creationDate = creationDate
+        self.modificationDate = modificationDate
+        self.image = image
         self.checked = checked
     }
     
