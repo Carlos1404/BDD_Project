@@ -11,6 +11,18 @@ import UIKit
 class ListItemCell: UITableViewCell {
     
     static var identifier = "listItemCell"
+    var item: ItemList? {
+        didSet {
+            //wrapping
+            guard let newItem = item else {
+                checkItem.isHidden = false
+                labelItem.text = ""
+                return
+            }
+            checkItem.isHidden = !newItem.checked
+            labelItem.text = newItem.title
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

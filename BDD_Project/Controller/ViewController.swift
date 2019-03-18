@@ -5,9 +5,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var items = [Item]()
-    var searchItems = [Item]()
+    var items = [ItemList]()
+    var searchItems = [ItemList]()
     var searching = false
+    let coreDataManager = CoreDataManager()
     var editIndexPath: Int?
     
     let dataManager = DataManager()
@@ -30,37 +31,40 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.items = dataManager.loadChecklistItems()
+        reloadData()
+    }
+    
+    func reloadData() {
+        self.items = coreDataManager.loadChecklistItems()
+        tableView.reloadData()
     }
     
     //MARK: Actions
-
     @IBAction func addItem(_ sender: Any) {
         
+        let alertController = UIAlertController(title: "Add Item", message: "Write the name of the new item", preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "OK", style: .default){ (action) in
+            if let text = alertController.textFields?.first?.text, !text.isEmpty {
+                self.coreDataManager.saveChecklistItem(title: text)
+                self.reloadData()
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        alertController.addTextField()
+        present(alertController, animated: true, completion: nil)
     }
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searching {
-            return searchItems.count
-        } else {
-            return items.count
-        }
+        return searching ? searchItems.count : items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: ListItemCell.identifier) as! ListItemCell
-        if searching {
-            configureText(for: cell, withItem: self.searchItems[indexPath.row])
-            configureCheckmark(for: cell, withItem: self.searchItems[indexPath.row])
-        } else {
-            configureText(for: cell, withItem: self.items[indexPath.row])
-            configureCheckmark(for: cell, withItem: self.items[indexPath.row])
-        }
-        
+        cell.item = searching ? self.searchItems[indexPath.row] : self.items[indexPath.row]
         return cell
     }
     
@@ -92,25 +96,22 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.items[indexPath.row].checkItem()
         self.tableView.reloadRows(at: [indexPath], with: .automatic)
-        dataManager.saveChecklistItems(list: self.items)
+        self.coreDataManager.saveChecklistItemsCDM(items: self.items)
     }
     
     //MARK: Swipe Item
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
         let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { (action, indexPath) in
             self.editIndexPath = indexPath.row
             self.performSegue(withIdentifier: "EditItem", sender: self)
         })
-        
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete"){(action, indexPath) in
             self.items.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            self.dataManager.saveChecklistItems(list: self.items)
+            //self.dataManager.saveChecklistItems(list: self.items)
+            self.coreDataManager.saveChecklistItemsCDM(items: self.items)
         }
-        
         return [deleteAction, editAction]
     }
     
@@ -122,7 +123,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ViewController: UISearchBarDelegate {
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty{
             self.searching = false
@@ -131,6 +131,7 @@ extension ViewController: UISearchBarDelegate {
             self.searching = true
         }
         self.tableView.reloadData()
+ */
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

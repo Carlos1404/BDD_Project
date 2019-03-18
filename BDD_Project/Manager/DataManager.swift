@@ -10,11 +10,11 @@ import Foundation
 
 class DataManager {
     
+    /*
     static var documentDirectory: URL { return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! }
-    
     static var dataFileUrl: URL { return DataManager.documentDirectory.appendingPathComponent("List").appendingPathExtension("json") }
     
-    func saveChecklistItems(list: [Item]){
+    func saveChecklistItems(list: [ItemList]){
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
         do {
@@ -24,11 +24,11 @@ class DataManager {
         catch {print(error)}
     }
     
-    func loadChecklistItems() -> [Item] {
+    func loadChecklistItems() -> [ItemList] {
         do {
             let data = try Data(contentsOf: DataManager.dataFileUrl)
             let decoder = JSONDecoder()
-            let list = try decoder.decode([Item].self, from: data)
+            let list = try decoder.decode([ItemList].self, from: data)
             return list
         }
         catch {
@@ -37,4 +37,5 @@ class DataManager {
         }
 
     }
+ */
 }
