@@ -11,7 +11,7 @@ import UIKit
 
 class CategoryController: UITableViewController {
     
-    var list = ["test1", "test2", "test3"]
+    var list = [Category]()
     @IBOutlet var listTableView: UITableView!
     
     var delegate: CategoryControllerDelegate?
@@ -22,25 +22,46 @@ class CategoryController: UITableViewController {
     @IBAction func cancelButton(_ sender: Any) {
         dismiss(animated: true)
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        reloadData()
+    }
+    
+    func reloadData() {
+        self.list = CoreDataManager.shared.loadCategories()
+        self.listTableView.reloadData()
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return list.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "Category", for: indexPath)
-        let text = list[indexPath.row]
+        let text = list[indexPath.row].title
         cell.textLabel?.text = text
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        delegate?.categoryController(self, didFinishChoosingItem: list[indexPath.row])
+        delegate?.categoryController(self, didFinishChoosingItem: list[indexPath.row].title ?? "No category")
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         self.list.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete"){(action, indexPath) in
+            self.list.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            //self.dataManager.saveChecklistItems(list: self.items)
+            //self.coreDataManager.saveChecklistItem()
+        }
+        return [deleteAction]
     }
     
     func showInputDialog() {
@@ -52,7 +73,10 @@ class CategoryController: UITableViewController {
             
             //getting the input values from user
             let name = alertController.textFields?[0].text
-            self.list.append(name!)
+            let categoryList = Category(context: AppDelegate.viewContext)
+            categoryList.title = name
+            CoreDataManager.shared.saveChecklistItem()
+            self.list.append(categoryList)
             self.listTableView.reloadData()
         }
         

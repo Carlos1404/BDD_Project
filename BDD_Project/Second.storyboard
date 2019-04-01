@@ -105,11 +105,11 @@
                             </tableViewSection>
                             <tableViewSection id="Cqv-ws-rOx">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PictureCell" rowHeight="163" id="kjM-bn-nir">
-                                        <rect key="frame" x="0.0" y="324" width="375" height="163"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PictureCell" rowHeight="175" id="kjM-bn-nir">
+                                        <rect key="frame" x="0.0" y="324" width="375" height="175"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kjM-bn-nir" id="DK1-5a-rUR">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="162.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="174.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QkX-gg-uDj">
@@ -117,6 +117,14 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qk7-j7-NGg">
+                                                    <rect key="frame" x="141" y="141" width="93" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="Pick a picture"/>
+                                                    <connections>
+                                                        <action selector="pickAPicture:" destination="Eqe-Rb-xU7" eventType="touchUpInside" id="LZP-dm-3go"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -125,7 +133,7 @@
                             <tableViewSection id="xO1-WP-37g">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TitleCell" id="aVI-jz-2pn" userLabel="CreationCell">
-                                        <rect key="frame" x="0.0" y="523" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="535" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aVI-jz-2pn" id="TvO-3m-mwP">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -155,7 +163,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DateCell" id="d9H-0S-S5G" userLabel="ModificationCell">
-                                        <rect key="frame" x="0.0" y="567" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="579" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d9H-0S-S5G" id="zUe-Fb-zsV">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -209,6 +217,7 @@
                         <outlet property="creationDate" destination="5q5-Qr-kRR" id="TJh-5V-c0d"/>
                         <outlet property="descriptionTextField" destination="e9B-6E-aeL" id="iyj-im-RO1"/>
                         <outlet property="doneButton" destination="sai-Gu-zb3" id="N8p-z3-gf7"/>
+                        <outlet property="image" destination="QkX-gg-uDj" id="6bs-2k-crh"/>
                         <outlet property="modificationCell" destination="d9H-0S-S5G" id="cPb-lK-FKr"/>
                         <outlet property="modificationDate" destination="Ukc-Pb-m09" id="SJT-Uz-wl7"/>
                         <outlet property="titleTextField" destination="Kue-q2-KpG" id="C52-iu-Hpc"/>

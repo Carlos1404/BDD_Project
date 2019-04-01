@@ -12,6 +12,8 @@ import CoreData
 
 class CoreDataManager {
     
+    static let shared = CoreDataManager()
+    
     //get items' list
     func loadChecklistItems() -> [ItemList] {
         let request: NSFetchRequest<ItemList> = NSFetchRequest<ItemList>(entityName: "ItemList")
@@ -19,6 +21,18 @@ class CoreDataManager {
         do {
             let itemsList = try AppDelegate.viewContext.fetch(request)
             result = itemsList as [ItemList]
+        } catch let error as NSError {
+            print("Could not fetch :  \(error)")
+        }
+        return result
+    }
+    
+    func loadCategories() -> [Category]{
+        let request: NSFetchRequest<Category> = NSFetchRequest<Category>(entityName: "Category")
+        var result = [Category]()
+        do {
+            let categories = try AppDelegate.viewContext.fetch(request)
+            result = categories as [Category]
         } catch let error as NSError {
             print("Could not fetch :  \(error)")
         }

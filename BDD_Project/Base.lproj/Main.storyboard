@@ -95,7 +95,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="List" id="3Jn-GG-ybQ">
-                        <barButtonItem key="leftBarButtonItem" title="Category" id="Nc2-ot-aJ6"/>
+                        <barButtonItem key="leftBarButtonItem" title="Category" id="Nc2-ot-aJ6">
+                            <connections>
+                                <action selector="categoryButton:" destination="BYZ-38-t0r" id="5VW-za-est"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="2tq-jS-Ver">
                                 <connections>

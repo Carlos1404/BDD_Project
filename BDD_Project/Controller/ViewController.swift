@@ -10,8 +10,7 @@ class ViewController: UIViewController {
     var searching = false
     let coreDataManager = CoreDataManager()
     var editIndexPath: Int?
-    
-    let dataManager = DataManager()
+    var categories = [Category]()
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -31,6 +30,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.categories = CoreDataManager.shared.loadCategories()
         reloadData()
     }
     
@@ -139,4 +139,39 @@ extension ViewController: SecondControllerDelegate {
         tableView.reloadRows(at: [IndexPath(item: indexPath!, section: 0)], with: UITableView.RowAnimation.automatic)
         dismiss(animated: true)
     }
+}
+
+extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate{
+    
+    @IBAction func categoryButton(_ sender: Any) {
+        
+        let vc = UIViewController()
+        vc.preferredContentSize = CGSize(width: 250,height: 300)
+        let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: 250, height: 300))
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        vc.view.addSubview(pickerView)
+        let editRadiusAlert = UIAlertController(title: "Choisir", message: "", preferredStyle: UIAlertController.Style.alert)
+        editRadiusAlert.setValue(vc, forKey: "contentViewController")
+        editRadiusAlert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
+        self.present(editRadiusAlert, animated: true)
+        
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.categories.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return self.categories[row].title
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+    }
+    
 }

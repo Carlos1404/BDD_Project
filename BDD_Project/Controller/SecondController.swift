@@ -15,6 +15,10 @@ class SecondController: UITableViewController {
     
     var itemToEdit: ItemList?
     var currentDate: Date?
+    var category: String = ""
+    let imagePicker = UIImagePickerController()
+    var imageUrl: Data?
+    
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
@@ -22,19 +26,24 @@ class SecondController: UITableViewController {
     @IBOutlet weak var modificationDate: UILabel!
     @IBOutlet weak var modificationCell: UITableViewCell!
     @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var image: UIImageView!
     
     @IBAction func cancelButton(_ sender: Any) {
         delegate?.itemDetailViewControllerDidCancel(self)
     }
+    
     @IBAction func doneAction(_ sender: Any) {
         if let itemToEdit = itemToEdit {
             itemToEdit.title = self.titleTextField.text!
             itemToEdit.descriptions = self.descriptionTextField.text!
+            itemToEdit.category = self.categoryLabel.text
             delegate?.itemDetailViewController(self, didFinishEditingItem: itemToEdit)
         } else {
             let itemList = ItemList(context: AppDelegate.viewContext)
             itemList.title = titleTextField.text!
             itemList.descriptions = descriptionTextField.text!
+            itemList.category = category
+            itemList.image = imageUrl
             itemList.creationDate = self.currentDate
             delegate?.itemDetailViewController(self, didFinishAddingItemList: itemList)
         }
@@ -65,8 +74,13 @@ class SecondController: UITableViewController {
             self.creationDate.text = getStringOfDate(date: itemToEdit?.creationDate)
             self.currentDate = getCurrentDate()
             self.modificationDate.text = getStringOfDate(date: currentDate)
+            self.categoryLabel.text = itemToEdit?.category ?? "Category"
+            if let image = itemToEdit?.image {
+                self.image.image = UIImage(data: image)
+            }
             self.doneButton.isEnabled = true
         }
+        self.imagePicker.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,13 +88,11 @@ class SecondController: UITableViewController {
     }
     
     func getCurrentDate() -> Date {
-        // get the current date and time
         let currentDateTime = Date()
         return currentDateTime
     }
     
     func getStringOfDate(date: Date?) -> String {
-        // initialize the date formatter and set the style
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         formatter.dateStyle = .medium
@@ -110,14 +122,40 @@ extension SecondController: UITextFieldDelegate {
     }
     
     func checkFields(text: String){
-        doneButton.isEnabled = !text.isEmpty
+        doneButton.isEnabled = !text.isEmpty && !self.category.isEmpty
     }
 }
 
 extension SecondController: CategoryControllerDelegate {
     
     func categoryController(_ controller: CategoryController, didFinishChoosingItem item: String) {
-        categoryLabel.text = item
+        self.categoryLabel.text = item
+        self.category = item
+        doneButton.isEnabled = !titleTextField.text!.isEmpty && !self.category.isEmpty
         dismiss(animated: true)
     }
+}
+
+extension SecondController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    @IBAction func pickAPicture(_ sender: Any) {
+        
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+            self.imagePicker.sourceType = .photoLibrary
+            self.imagePicker.allowsEditing = false
+            
+            present(self.imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let url = info[UIImagePickerController.InfoKey.imageURL] {
+            let data = try? Data(contentsOf: url as! URL)
+            self.image.image = UIImage(data: data!)
+            self.imageUrl = data
+        }
+        
+        dismiss(animated: true)
+    }
+    
 }
