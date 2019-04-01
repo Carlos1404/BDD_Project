@@ -25,21 +25,11 @@ class CoreDataManager {
         return result
     }
     
-    //set items' list
-    func saveChecklistItemsCDM(items: [ItemList]) {
-        
-    }
-    
     //get item's details
-    func loadChecklistItem() -> Int {
-        
-        return 0
-    }
+    func loadChecklistItem() -> Int { return 0 }
     
     //save item
-    func saveChecklistItem() {
-        try? AppDelegate.viewContext.save()
-    }
+    func saveChecklistItem() { try? AppDelegate.viewContext.save() }
     
     //update an item
     func updateItem(item: ItemList) {
