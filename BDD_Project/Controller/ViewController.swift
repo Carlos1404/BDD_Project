@@ -8,13 +8,10 @@ class ViewController: UIViewController {
     var items = [ItemList]()
     var searchItems = [ItemList]()
     var searching = false
-    let coreDataManager = CoreDataManager()
+    let coreDataManager = CoreDataManager.instance
     var editIndexPath: Int?
     
-    let dataManager = DataManager()
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "AddItem" {
             let navVC = segue.destination as! UINavigationController
             let destVC = navVC.topViewController as! SecondController
@@ -26,7 +23,6 @@ class ViewController: UIViewController {
             if let indexPath = editIndexPath { destVC.itemToEdit = self.items[indexPath] }
             destVC.delegate = self
         }
-        
     }
     
     override func viewDidLoad() {
@@ -41,9 +37,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searching ? searchItems.count : items.count
-    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return searching ? searchItems.count : items.count }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ListItemCell.identifier) as! ListItemCell
@@ -52,11 +46,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func configureCheckmark(for cell: ListItemCell, withItem item: ItemList){
-        if(item.checked){
-            cell.checkItem.isHidden = false
-        } else {
-            cell.checkItem.isHidden = true
-        }
+        if(item.checked){ cell.checkItem.isHidden = false }
+        else { cell.checkItem.isHidden = true }
     }
     
     func configureText(for cell: ListItemCell, withItem item: ItemList){
@@ -70,11 +61,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         formatter.timeStyle = .short
         formatter.dateStyle = .medium
         
-        if let date = date {
-            return formatter.string(from: date)
-        } else {
-            return ""
-        }
+        if let date = date { return formatter.string(from: date) }
+        else { return "" }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -90,52 +78,44 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             self.performSegue(withIdentifier: "EditItem", sender: self)
         })
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete"){(action, indexPath) in
+            self.coreDataManager.deleteItem(item: self.items[indexPath.row])
             self.items.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            //self.dataManager.saveChecklistItems(list: self.items)
-            self.coreDataManager.saveChecklistItem()
         }
         return [deleteAction, editAction]
-    }
-    
-    func addItem(item: ItemList){
-        /*self.tableView.insertRows(at: [IndexPath(row: self.items.count - 1, section: 0)], with: .automatic)
-        print(self.items.count)*/
-        self.coreDataManager.saveChecklistItem()
-        self.reloadData()
     }
 }
 
 extension ViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        /*if searchText.isEmpty{
+        /*
+        if searchText.isEmpty{
             self.searching = false
         } else {
-            searchItems = items.filter({$0.title.lowercased().prefix(searchText.count) == searchText.lowercased()})
+            searchItems = items.filter({$0.title?.lowercased().prefix(searchText.count) == searchText.lowercased()})
             self.searching = true
         }
-        self.tableView.reloadData()*/
+        self.tableView.reloadData()
+        */
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.searching = false
-        self.tableView.reloadData()
+        searching = false
+        tableView.reloadData()
     }
 }
 
 extension ViewController: SecondControllerDelegate {
-    func itemDetailViewControllerDidCancel(_ controller: SecondController) {
-        dismiss(animated: true)
-    }
+    func itemDetailViewControllerDidCancel(_ controller: SecondController) { dismiss(animated: true) }
     
-    @objc(itemDetailViewController:didFinishAddingItemList:) func itemDetailViewController(_ controller: SecondController, didFinishAddingItemList item: ItemList) {
-        self.addItem(item: item)
+    func itemDetailViewController(_ controller: SecondController, didFinishAddingItemList item: ItemList) {
+        reloadData()
         dismiss(animated: true)
     }
     
     func itemDetailViewController(_ controller: SecondController, didFinishEditingItem item: ItemList) {
         let indexPath = self.items.index(where: { $0 === item})
-        self.items[indexPath!] = item
+        items[indexPath!] = item
         tableView.reloadRows(at: [IndexPath(item: indexPath!, section: 0)], with: UITableView.RowAnimation.automatic)
         dismiss(animated: true)
     }
