@@ -21,6 +21,7 @@ class SecondController: UITableViewController {
     @IBOutlet weak var creationDate: UILabel!
     @IBOutlet weak var modificationDate: UILabel!
     @IBOutlet weak var modificationCell: UITableViewCell!
+    @IBOutlet weak var categoryLabel: UILabel!
     
     @IBAction func cancelButton(_ sender: Any) {
         delegate?.itemDetailViewControllerDidCancel(self)
@@ -36,6 +37,14 @@ class SecondController: UITableViewController {
             itemList.descriptions = descriptionTextField.text!
             itemList.creationDate = self.currentDate
             delegate?.itemDetailViewController(self, didFinishAddingItemList: itemList)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "AddCategory" {
+            let destVC = segue.destination as! CategoryController
+            destVC.delegate = self
         }
     }
     
@@ -103,5 +112,12 @@ extension SecondController: UITextFieldDelegate {
     func checkFields(text: String){
         doneButton.isEnabled = !text.isEmpty
     }
+}
+
+extension SecondController: CategoryControllerDelegate {
     
+    func categoryController(_ controller: CategoryController, didFinishChoosingItem item: String) {
+        categoryLabel.text = item
+        dismiss(animated: true)
+    }
 }

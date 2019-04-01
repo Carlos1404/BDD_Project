@@ -97,6 +97,9 @@
                                                 <constraint firstItem="3K4-VU-HaZ" firstAttribute="top" secondItem="uJo-Hk-NF0" secondAttribute="topMargin" id="hgx-N5-k1p"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="D3o-xv-TA4" kind="presentation" identifier="AddCategory" id="cKl-89-lbu"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -202,6 +205,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="categoryLabel" destination="3K4-VU-HaZ" id="i4f-9x-uUT"/>
                         <outlet property="creationDate" destination="5q5-Qr-kRR" id="TJh-5V-c0d"/>
                         <outlet property="descriptionTextField" destination="e9B-6E-aeL" id="iyj-im-RO1"/>
                         <outlet property="doneButton" destination="sai-Gu-zb3" id="N8p-z3-gf7"/>
@@ -213,6 +217,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sVB-t8-160" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="972" y="-224.4377811094453"/>
+        </scene>
+        <!--Category Controller-->
+        <scene sceneID="ifE-ll-unf">
+            <objects>
+                <tableViewController id="D3o-xv-TA4" customClass="CategoryController" customModule="BDD_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="RgB-aw-bZy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="fmi-d3-wEq">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <items>
+                                <navigationItem title="Category" id="zVQ-Z7-zjT">
+                                    <barButtonItem key="leftBarButtonItem" title="Cancel" id="JiN-Wn-yho">
+                                        <connections>
+                                            <action selector="cancelButton:" destination="D3o-xv-TA4" id="uy7-hS-cQF"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem key="rightBarButtonItem" title="Add" id="DZp-SP-Lyy">
+                                        <connections>
+                                            <action selector="addButton:" destination="D3o-xv-TA4" id="kpx-Nl-Gz6"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </navigationItem>
+                            </items>
+                        </navigationBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Category" id="G7v-CC-vtA">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="G7v-CC-vtA" id="aQM-Fe-OB6">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="D3o-xv-TA4" id="7TV-Mg-bgi"/>
+                            <outlet property="delegate" destination="D3o-xv-TA4" id="ZHa-3W-gPI"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="listTableView" destination="RgB-aw-bZy" id="8Gi-O6-ByY"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dMb-50-kou" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1735" y="-220"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NVp-Um-eQN">
