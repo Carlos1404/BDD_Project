@@ -17,7 +17,6 @@
 		083CD3512220460D0096D4DB /* SecondController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083CD3502220460D0096D4DB /* SecondController.swift */; };
 		083CD35322205C370096D4DB /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083CD35222205C370096D4DB /* ListItemCell.swift */; };
 		0889E8892251EEA9005308EC /* CategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889E8882251EEA9005308EC /* CategoryController.swift */; };
-		0889E88B22520178005308EC /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889E88A22520178005308EC /* Category.swift */; };
 		0889E88D22523DD7005308EC /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889E88C22523DD7005308EC /* PickerViewController.swift */; };
 		08EA18A1223F8B9B004D3D93 /* DataBase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08EA189F223F8B9B004D3D93 /* DataBase.xcdatamodeld */; };
 		08EA18A3223F9233004D3D93 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EA18A2223F9233004D3D93 /* CoreDataManager.swift */; };
@@ -36,7 +35,6 @@
 		083CD3502220460D0096D4DB /* SecondController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondController.swift; sourceTree = "<group>"; };
 		083CD35222205C370096D4DB /* ListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
 		0889E8882251EEA9005308EC /* CategoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryController.swift; sourceTree = "<group>"; };
-		0889E88A22520178005308EC /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		0889E88C22523DD7005308EC /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		08EA18A0223F8B9B004D3D93 /* DataBase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataBase.xcdatamodel; sourceTree = "<group>"; };
 		08EA18A2223F9233004D3D93 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -109,8 +107,6 @@
 			isa = PBXGroup;
 			children = (
 				083CD35222205C370096D4DB /* ListItemCell.swift */,
-				08EA18A4223FCE95004D3D93 /* ItemList.swift */,
-				0889E88A22520178005308EC /* Category.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -205,7 +201,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				083CD337221FEF1B0096D4DB /* ViewController.swift in Sources */,
-				0889E88B22520178005308EC /* Category.swift in Sources */,
 				083CD34F22203C450096D4DB /* DataManager.swift in Sources */,
 				083CD35322205C370096D4DB /* ListItemCell.swift in Sources */,
 				08EA18A1223F8B9B004D3D93 /* DataBase.xcdatamodeld in Sources */,

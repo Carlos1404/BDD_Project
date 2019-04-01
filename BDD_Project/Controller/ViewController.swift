@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.categories = CoreDataManager.shared.loadCategories()
+        self.categories = coreDataManager.loadCategories()
         reloadData()
     }
     

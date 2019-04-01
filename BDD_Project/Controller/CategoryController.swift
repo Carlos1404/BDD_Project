@@ -29,7 +29,7 @@ class CategoryController: UITableViewController {
     }
     
     func reloadData() {
-        self.list = CoreDataManager.shared.loadCategories()
+        self.list = CoreDataManager.instance.loadCategories()
         self.listTableView.reloadData()
     }
     
@@ -73,9 +73,9 @@ class CategoryController: UITableViewController {
             
             //getting the input values from user
             let name = alertController.textFields?[0].text
-            let categoryList = Category(context: AppDelegate.viewContext)
+            let categoryList = Category(context: CoreDataManager.instance.viewContext)
             categoryList.title = name
-            CoreDataManager.shared.saveChecklistItem()
+            CoreDataManager.instance.saveData()
             self.list.append(categoryList)
             self.listTableView.reloadData()
         }

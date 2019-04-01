@@ -39,7 +39,7 @@ class CoreDataManager {
         let request: NSFetchRequest<Category> = NSFetchRequest<Category>(entityName: "Category")
         var result = [Category]()
         do {
-            let categories = try AppDelegate.viewContext.fetch(request)
+            let categories = try viewContext.fetch(request)
             result = categories as [Category]
         } catch let error as NSError {
             print("Could not fetch :  \(error)")
@@ -63,12 +63,14 @@ class CoreDataManager {
     }
     
     //add an item
-    func addItem(title: String, descriptions: String = "") -> ItemList {
+    func addItem(title: String, descriptions: String = "", category: String, image: Data?) -> ItemList {
         let item = ItemList(context: viewContext)
         item.title = title
         item.descriptions = descriptions
         item.creationDate = Date()
         item.modificationDate = Date()
+        item.category = category
+        item.image = image
         item.checked = false
         saveData()
         return item

@@ -16,7 +16,7 @@ class SecondController: UITableViewController {
     var currentDate: Date?
     var category: String = ""
     let imagePicker = UIImagePickerController()
-    var imageUrl: Data?
+    var imageData: Data?
     
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var titleTextField: UITextField!
@@ -34,17 +34,12 @@ class SecondController: UITableViewController {
             itemToEdit.title = titleTextField.text!
             itemToEdit.descriptions = descriptionTextField.text!
             itemToEdit.modificationDate = Date()
-            CoreDataManager.instance.saveData()
             itemToEdit.category = self.categoryLabel.text
+            itemToEdit.image = self.imageData
+            CoreDataManager.instance.saveData()
             delegate?.itemDetailViewController(self, didFinishEditingItem: itemToEdit)
         } else {
-            let itemList = CoreDataManager.instance.addItem(title: titleTextField.text!, descriptions: descriptionTextField.text!)
-            let itemList = ItemList(context: AppDelegate.viewContext)
-            itemList.title = titleTextField.text!
-            itemList.descriptions = descriptionTextField.text!
-            itemList.category = category
-            itemList.image = imageUrl
-            itemList.creationDate = self.currentDate
+            let itemList = CoreDataManager.instance.addItem(title: titleTextField.text!, descriptions: descriptionTextField.text!, category: self.category, image: imageData)
             delegate?.itemDetailViewController(self, didFinishAddingItemList: itemList)
         }
     }
@@ -60,7 +55,6 @@ class SecondController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { tableView.deselectRow(at: indexPath, animated: true) }
     
     override func viewDidLoad() {
         if(itemToEdit == nil){
@@ -145,7 +139,7 @@ extension SecondController: UINavigationControllerDelegate, UIImagePickerControl
         if let url = info[UIImagePickerController.InfoKey.imageURL] {
             let data = try? Data(contentsOf: url as! URL)
             self.image.image = UIImage(data: data!)
-            self.imageUrl = data
+            self.imageData = data
         }
         
         dismiss(animated: true)
