@@ -89,16 +89,15 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ViewController: UISearchBarDelegate {
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        /*
         if searchText.isEmpty{
             self.searching = false
         } else {
-            searchItems = items.filter({$0.title?.lowercased().prefix(searchText.count) == searchText.lowercased()})
+            searchItems = items.filter({( item : ItemList) -> Bool in return item.title?.lowercased().contains(searchText.lowercased()) ?? false})
             self.searching = true
         }
         self.tableView.reloadData()
-        */
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

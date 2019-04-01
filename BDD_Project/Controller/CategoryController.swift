@@ -58,8 +58,6 @@ class CategoryController: UITableViewController {
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete"){(action, indexPath) in
             self.list.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            //self.dataManager.saveChecklistItems(list: self.items)
-            //self.coreDataManager.saveChecklistItem()
         }
         return [deleteAction]
     }
