@@ -12,7 +12,6 @@ import UIKit
 class SecondController: UITableViewController {
     
     var delegate: SecondControllerDelegate?
-    
     var itemToEdit: ItemList?
     var currentDate: Date?
     var category: String = ""
@@ -28,17 +27,18 @@ class SecondController: UITableViewController {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var image: UIImageView!
     
-    @IBAction func cancelButton(_ sender: Any) {
-        delegate?.itemDetailViewControllerDidCancel(self)
-    }
+    @IBAction func cancelButton(_ sender: Any) { delegate?.itemDetailViewControllerDidCancel(self) }
     
     @IBAction func doneAction(_ sender: Any) {
         if let itemToEdit = itemToEdit {
-            itemToEdit.title = self.titleTextField.text!
-            itemToEdit.descriptions = self.descriptionTextField.text!
+            itemToEdit.title = titleTextField.text!
+            itemToEdit.descriptions = descriptionTextField.text!
+            itemToEdit.modificationDate = Date()
+            CoreDataManager.instance.saveData()
             itemToEdit.category = self.categoryLabel.text
             delegate?.itemDetailViewController(self, didFinishEditingItem: itemToEdit)
         } else {
+            let itemList = CoreDataManager.instance.addItem(title: titleTextField.text!, descriptions: descriptionTextField.text!)
             let itemList = ItemList(context: AppDelegate.viewContext)
             itemList.title = titleTextField.text!
             itemList.descriptions = descriptionTextField.text!
@@ -60,12 +60,12 @@ class SecondController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { tableView.deselectRow(at: indexPath, animated: true) }
     
     override func viewDidLoad() {
         if(itemToEdit == nil){
             self.title = "Ajout"
-            self.currentDate = getCurrentDate()
-            self.creationDate.text = getStringOfDate(date: currentDate)
+            self.creationDate.text = getStringOfDate(date: getCurrentDate())
             self.modificationCell.isHidden = true
         } else {
             self.title = "Edition"
@@ -83,9 +83,7 @@ class SecondController: UITableViewController {
         self.imagePicker.delegate = self
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        titleTextField.becomeFirstResponder()
-    }
+    override func viewWillAppear(_ animated: Bool) { titleTextField.becomeFirstResponder() }
     
     func getCurrentDate() -> Date {
         let currentDateTime = Date()
@@ -97,13 +95,9 @@ class SecondController: UITableViewController {
         formatter.timeStyle = .short
         formatter.dateStyle = .medium
         
-        if let date = date {
-            return formatter.string(from: date)
-        } else {
-            return ""
-        }
+        if let date = date { return formatter.string(from: date) }
+        else { return "" }
     }
-    
 }
 
 protocol SecondControllerDelegate : class {
@@ -113,7 +107,6 @@ protocol SecondControllerDelegate : class {
 }
 
 extension SecondController: UITextFieldDelegate {
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let oldString = titleTextField.text!
         let newString = oldString.replacingCharacters(in: Range(range, in: oldString)!, with: string)

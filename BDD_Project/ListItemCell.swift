@@ -26,10 +26,7 @@ class ListItemCell: UITableViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    override func awakeFromNib() { super.awakeFromNib() }
     
     func getStringOfDate(date: Date?) -> String {
         // initialize the date formatter and set the style
@@ -37,18 +34,11 @@ class ListItemCell: UITableViewCell {
         formatter.timeStyle = .short
         formatter.dateStyle = .medium
         
-        if let date = date {
-            return formatter.string(from: date)
-        } else {
-            return ""
-        }
+        if let date = date { return formatter.string(from: date) }
+        else { return "" }
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
+    override func setSelected(_ selected: Bool, animated: Bool) { super.setSelected(selected, animated: animated) }
     
     @IBOutlet weak var checkItem: UILabel!
     @IBOutlet weak var titleItem: UILabel!
