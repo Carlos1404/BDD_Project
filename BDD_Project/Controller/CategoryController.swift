@@ -49,17 +49,10 @@ class CategoryController: UITableViewController {
         delegate?.categoryController(self, didFinishChoosingItem: list[indexPath.row].title ?? "No category")
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        self.list.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .automatic)
-    }
-    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete"){(action, indexPath) in
-            self.list.remove(at: indexPath.row)
+            CoreDataManager.instance.deleteItem(item: self.list.remove(at: indexPath.row))
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            //self.dataManager.saveChecklistItems(list: self.items)
-            //self.coreDataManager.saveChecklistItem()
         }
         return [deleteAction]
     }

@@ -1,9 +1,14 @@
 import UIKit
 
+enum PickerViewType {
+    case category, sort
+}
+
 class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var listTableView: UITableView!
     
     var items = [ItemList]()
     var searchItems = [ItemList]()
@@ -11,6 +16,9 @@ class ViewController: UIViewController {
     let coreDataManager = CoreDataManager.instance
     var editIndexPath: Int?
     var categories = [Category]()
+    
+    var sortType = ["Date", "Titre"]
+    var pickerViewType = PickerViewType.category
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddItem" {
@@ -108,16 +116,21 @@ extension ViewController: UISearchBarDelegate {
 }
 
 extension ViewController: SecondControllerDelegate {
-    func itemDetailViewControllerDidCancel(_ controller: SecondController) { dismiss(animated: true) }
+    func itemDetailViewControllerDidCancel(_ controller: SecondController) {
+        self.categories = coreDataManager.loadCategories()
+        dismiss(animated: true)
+    }
     
     func itemDetailViewController(_ controller: SecondController, didFinishAddingItemList item: ItemList) {
         reloadData()
+        self.categories = coreDataManager.loadCategories()
         dismiss(animated: true)
     }
     
     func itemDetailViewController(_ controller: SecondController, didFinishEditingItem item: ItemList) {
         let indexPath = self.items.index(where: { $0 === item})
         items[indexPath!] = item
+        self.categories = coreDataManager.loadCategories()
         tableView.reloadRows(at: [IndexPath(item: indexPath!, section: 0)], with: UITableView.RowAnimation.automatic)
         dismiss(animated: true)
     }
@@ -126,6 +139,16 @@ extension ViewController: SecondControllerDelegate {
 extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate{
     
     @IBAction func categoryButton(_ sender: Any) {
+        self.pickerViewType = PickerViewType.category
+        displayPickerView()
+    }
+    
+    @IBAction func sortButton(_ sender: Any) {
+        self.pickerViewType = PickerViewType.sort
+        displayPickerView()
+    }
+    
+    func displayPickerView(){
         
         let vc = UIViewController()
         vc.preferredContentSize = CGSize(width: 250,height: 300)
@@ -136,6 +159,10 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate{
         let editRadiusAlert = UIAlertController(title: "Choisir", message: "", preferredStyle: UIAlertController.Style.alert)
         editRadiusAlert.setValue(vc, forKey: "contentViewController")
         editRadiusAlert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
+        editRadiusAlert.addAction(UIAlertAction(title: "Réinitialiser", style: .default, handler: { (UIAlertAction) in
+            self.items = CoreDataManager.instance.loadChecklistItems()
+            self.listTableView.reloadData()
+        }))
         self.present(editRadiusAlert, animated: true)
         
     }
@@ -145,15 +172,32 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate{
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.categories.count
+        if(pickerViewType == PickerViewType.category){
+            return self.categories.count
+        } else {
+            return self.sortType.count
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return self.categories[row].title
+        if(pickerViewType == PickerViewType.category){
+            return self.categories[row].title
+        } else {
+            return self.sortType[row]
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+        if(pickerViewType == PickerViewType.category){
+            let list = CoreDataManager.instance.loadChecklistItems().filter({ item -> Bool in
+                item.category == self.categories[row].title
+            })
+            self.items = list
+        } else {
+            
+        }
+        self.listTableView.reloadData()
+        dismiss(animated: true)
     }
     
 }

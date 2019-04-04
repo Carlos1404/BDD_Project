@@ -13,11 +13,9 @@
 		083CD33C221FEF1C0096D4DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 083CD33B221FEF1C0096D4DB /* Assets.xcassets */; };
 		083CD33F221FEF1C0096D4DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 083CD33D221FEF1C0096D4DB /* LaunchScreen.storyboard */; };
 		083CD34C22203C090096D4DB /* Second.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 083CD34B22203C090096D4DB /* Second.storyboard */; };
-		083CD34F22203C450096D4DB /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083CD34E22203C450096D4DB /* DataManager.swift */; };
 		083CD3512220460D0096D4DB /* SecondController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083CD3502220460D0096D4DB /* SecondController.swift */; };
 		083CD35322205C370096D4DB /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083CD35222205C370096D4DB /* ListItemCell.swift */; };
 		0889E8892251EEA9005308EC /* CategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889E8882251EEA9005308EC /* CategoryController.swift */; };
-		0889E88D22523DD7005308EC /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889E88C22523DD7005308EC /* PickerViewController.swift */; };
 		08EA18A1223F8B9B004D3D93 /* DataBase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08EA189F223F8B9B004D3D93 /* DataBase.xcdatamodeld */; };
 		08EA18A3223F9233004D3D93 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EA18A2223F9233004D3D93 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
@@ -31,11 +29,9 @@
 		083CD33E221FEF1C0096D4DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		083CD340221FEF1C0096D4DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		083CD34B22203C090096D4DB /* Second.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Second.storyboard; sourceTree = "<group>"; };
-		083CD34E22203C450096D4DB /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		083CD3502220460D0096D4DB /* SecondController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondController.swift; sourceTree = "<group>"; };
 		083CD35222205C370096D4DB /* ListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
 		0889E8882251EEA9005308EC /* CategoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryController.swift; sourceTree = "<group>"; };
-		0889E88C22523DD7005308EC /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		08EA18A0223F8B9B004D3D93 /* DataBase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataBase.xcdatamodel; sourceTree = "<group>"; };
 		08EA18A2223F9233004D3D93 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,7 +94,6 @@
 				083CD336221FEF1B0096D4DB /* ViewController.swift */,
 				083CD3502220460D0096D4DB /* SecondController.swift */,
 				0889E8882251EEA9005308EC /* CategoryController.swift */,
-				0889E88C22523DD7005308EC /* PickerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -114,7 +109,6 @@
 		083CD34D22203C280096D4DB /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				083CD34E22203C450096D4DB /* DataManager.swift */,
 				08EA18A2223F9233004D3D93 /* CoreDataManager.swift */,
 			);
 			path = Manager;
@@ -201,11 +195,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				083CD337221FEF1B0096D4DB /* ViewController.swift in Sources */,
-				083CD34F22203C450096D4DB /* DataManager.swift in Sources */,
 				083CD35322205C370096D4DB /* ListItemCell.swift in Sources */,
 				08EA18A1223F8B9B004D3D93 /* DataBase.xcdatamodeld in Sources */,
 				083CD335221FEF1B0096D4DB /* AppDelegate.swift in Sources */,
-				0889E88D22523DD7005308EC /* PickerViewController.swift in Sources */,
 				08EA18A3223F9233004D3D93 /* CoreDataManager.swift in Sources */,
 				083CD3512220460D0096D4DB /* SecondController.swift in Sources */,
 				0889E8892251EEA9005308EC /* CategoryController.swift in Sources */,
