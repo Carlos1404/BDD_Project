@@ -4,7 +4,7 @@ enum PickerViewType {
     case category, sort
 }
 
-class ViewController: UIViewController {
+class ListController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -23,14 +23,19 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddItem" {
             let navVC = segue.destination as! UINavigationController
-            let destVC = navVC.topViewController as! SecondController
+            let destVC = navVC.topViewController as! EditController
             destVC.delegate = self
         }
         else if segue.identifier == "EditItem"{
             let navVC = segue.destination as! UINavigationController
-            let destVC = navVC.topViewController as! SecondController
+            let destVC = navVC.topViewController as! EditController
             if let indexPath = editIndexPath { destVC.itemToEdit = self.items[indexPath] }
             destVC.delegate = self
+        }
+        else if segue.identifier == "DetailItem"{
+            let destVC = segue.destination as! ListDetailController
+            let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
+            destVC.itemToEdit = self.items[indexPath.row]
         }
     }
     
@@ -46,7 +51,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension ListController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return searching ? searchItems.count : items.count }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -96,7 +101,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ViewController: UISearchBarDelegate {
+extension ListController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty{
@@ -114,19 +119,19 @@ extension ViewController: UISearchBarDelegate {
     }
 }
 
-extension ViewController: SecondControllerDelegate {
-    func itemDetailViewControllerDidCancel(_ controller: SecondController) {
+extension ListController: SecondControllerDelegate {
+    func itemDetailViewControllerDidCancel(_ controller: EditController) {
         self.categories = coreDataManager.loadCategories()
         dismiss(animated: true)
     }
     
-    func itemDetailViewController(_ controller: SecondController, didFinishAddingItemList item: ItemList) {
+    func itemDetailViewController(_ controller: EditController, didFinishAddingItemList item: ItemList) {
         reloadData()
         self.categories = coreDataManager.loadCategories()
         dismiss(animated: true)
     }
     
-    func itemDetailViewController(_ controller: SecondController, didFinishEditingItem item: ItemList) {
+    func itemDetailViewController(_ controller: EditController, didFinishEditingItem item: ItemList) {
         let indexPath = self.items.index(where: { $0 === item})
         items[indexPath!] = item
         self.categories = coreDataManager.loadCategories()
@@ -135,7 +140,7 @@ extension ViewController: SecondControllerDelegate {
     }
 }
 
-extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate{
+extension ListController: UIPickerViewDataSource, UIPickerViewDelegate{
     
     @IBAction func categoryButton(_ sender: Any) {
         self.pickerViewType = PickerViewType.category
@@ -193,7 +198,14 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate{
             })
             self.items = list
         } else {
-            
+            if self.sortType[row] == "Titre" {
+                let list = self.items.sorted { $0.title! < $1.title! }
+                self.items = list
+            }
+            else if self.sortType[row] == "Date" {
+                let list = self.items.sorted { $0.creationDate?.compare($1.creationDate!) == .orderedDescending }
+                self.items = list
+            }
         }
         self.listTableView.reloadData()
         dismiss(animated: true)

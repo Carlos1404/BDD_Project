@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SecondController: UITableViewController {
+class EditController: UITableViewController {
     
     var delegate: SecondControllerDelegate?
     var itemToEdit: ItemList?
@@ -59,10 +59,12 @@ class SecondController: UITableViewController {
     override func viewDidLoad() {
         if(itemToEdit == nil){
             self.title = "Ajout"
+            self.doneButton.title = "Ajouter"
             self.creationDate.text = getStringOfDate(date: getCurrentDate())
             self.modificationCell.isHidden = true
         } else {
             self.title = "Edition"
+            self.doneButton.title = "Editer"
             titleTextField.text = itemToEdit?.title
             descriptionTextField.text = itemToEdit?.descriptions ?? ""
             self.creationDate.text = getStringOfDate(date: itemToEdit?.creationDate)
@@ -95,12 +97,12 @@ class SecondController: UITableViewController {
 }
 
 protocol SecondControllerDelegate : class {
-    func itemDetailViewControllerDidCancel(_ controller: SecondController)
-    func itemDetailViewController(_ controller: SecondController, didFinishAddingItemList item: ItemList)
-    func itemDetailViewController(_ controller:SecondController,didFinishEditingItem item: ItemList)
+    func itemDetailViewControllerDidCancel(_ controller: EditController)
+    func itemDetailViewController(_ controller: EditController, didFinishAddingItemList item: ItemList)
+    func itemDetailViewController(_ controller:EditController,didFinishEditingItem item: ItemList)
 }
 
-extension SecondController: UITextFieldDelegate {
+extension EditController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let oldString = titleTextField.text!
         let newString = oldString.replacingCharacters(in: Range(range, in: oldString)!, with: string)
@@ -113,7 +115,7 @@ extension SecondController: UITextFieldDelegate {
     }
 }
 
-extension SecondController: CategoryControllerDelegate {
+extension EditController: CategoryControllerDelegate {
     
     func categoryController(_ controller: CategoryController, didFinishChoosingItem item: String) {
         self.categoryLabel.text = item
@@ -123,7 +125,7 @@ extension SecondController: CategoryControllerDelegate {
     }
 }
 
-extension SecondController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+extension EditController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     @IBAction func pickAPicture(_ sender: Any) {
         
