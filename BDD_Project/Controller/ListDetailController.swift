@@ -17,23 +17,15 @@ class ListDetailController: UIViewController {
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var descriptionText: UITextView!
     @IBOutlet weak var category: UILabel!
-    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         self.title = itemToEdit?.title
         self.category.text = itemToEdit?.category ?? "No category"
         self.date.text = getStringOfDate(date: itemToEdit?.creationDate)
-        
-        if(self.itemToEdit?.image != nil) {
-            if let image = itemToEdit?.image {
-                self.image.image = UIImage(data: image)
-                self.imageHeightConstraint.constant = UIScreen.main.bounds.height
-            }
-            self.descriptionText.text = itemToEdit?.descriptions
-        } else {
-            self.imageHeightConstraint.constant = 0
-            self.descriptionText.text = itemToEdit?.descriptions
+        if let image = itemToEdit?.image {
+            self.image.image = UIImage(data: image)
         }
+        self.descriptionText.text = itemToEdit?.descriptions
     }
     
     func getStringOfDate(date: Date?) -> String {
