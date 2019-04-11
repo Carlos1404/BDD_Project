@@ -13,7 +13,6 @@ class ListController: UIViewController {
     
     var items = [ItemList]()
     var searchItems = [ItemList]()
-    var searching = false
     let coreDataManager = CoreDataManager.instance
     var editIndexPath: Int?
     var categories = [Category]()
@@ -57,11 +56,11 @@ class ListController: UIViewController {
 }
 
 extension ListController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return searching ? searchItems.count : items.count }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return items.count }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ListItemCell.identifier) as! ListItemCell
-        cell.item = searching ? self.searchItems[indexPath.row] : self.items[indexPath.row]
+        cell.item = self.items[indexPath.row]
         return cell
     }
     
@@ -109,17 +108,16 @@ extension ListController: UITableViewDelegate, UITableViewDataSource {
 extension ListController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty{
-            self.searching = false
-        } else {
+        if !searchText.isEmpty{
+            self.items = coreDataManager.loadChecklistItems(searchText.lowercased())
             searchItems = items.filter({( item : ItemList) -> Bool in return item.title?.lowercased().contains(searchText.lowercased()) ?? false})
-            self.searching = true
+        } else {
+            self.items = coreDataManager.loadChecklistItems()
         }
         self.tableView.reloadData()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searching = false
         tableView.reloadData()
     }
 }

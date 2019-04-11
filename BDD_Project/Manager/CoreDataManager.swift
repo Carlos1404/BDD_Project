@@ -29,7 +29,7 @@ class CoreDataManager {
     func loadChecklistItems(_ query: String? = nil) -> [ItemList] {
         let request: NSFetchRequest<ItemList> = NSFetchRequest<ItemList>(entityName: "ItemList")
         if let query = query {
-            request.predicate = NSPredicate(format: "title contains[cd]", query)
+            request.predicate = NSPredicate(format: "title contains[cd] %@", query)
         }
         var result = [ItemList]()
         do {
