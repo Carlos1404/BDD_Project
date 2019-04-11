@@ -23,8 +23,14 @@ class ListDetailController: UIViewController {
         self.title = itemToEdit?.title
         self.category.text = itemToEdit?.category ?? "No category"
         self.date.text = getStringOfDate(date: itemToEdit?.creationDate)
-        if let image = itemToEdit?.image {
-            self.image.image = UIImage(data: image)
+        
+        if(self.itemToEdit?.image != nil) {
+            if let image = itemToEdit?.image {
+                self.image.image = UIImage(data: image)
+                self.imageHeightConstraint.constant = UIScreen.main.bounds.height
+            }
+        } else {
+            self.imageHeightConstraint.constant = 0
         }
         self.descriptionText.text = itemToEdit?.descriptions
     }
