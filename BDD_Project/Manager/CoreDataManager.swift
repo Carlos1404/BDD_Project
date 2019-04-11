@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import Firebase
 
 class CoreDataManager {
     
@@ -25,8 +26,11 @@ class CoreDataManager {
     var viewContext: NSManagedObjectContext { return persistentContainer.viewContext }
     
     //get items' list
-    func loadChecklistItems() -> [ItemList] {
+    func loadChecklistItems(_ query: String? = nil) -> [ItemList] {
         let request: NSFetchRequest<ItemList> = NSFetchRequest<ItemList>(entityName: "ItemList")
+        if let query = query {
+            request.predicate = NSPredicate(format: "title contains[cd]", query)
+        }
         var result = [ItemList]()
         do {
             let itemsList = try viewContext.fetch(request)

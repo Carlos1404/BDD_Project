@@ -146,7 +146,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3Hx-SY-7uG">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3Hx-SY-7uG">
                                 <rect key="frame" x="0.0" y="292.5" width="375" height="374.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -161,25 +161,24 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="X2M-cV-KcA">
                                 <rect key="frame" x="0.0" y="148.5" width="375" height="128"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="X2M-cV-KcA" secondAttribute="height" multiplier="375:128" id="mf3-Cs-Fuk"/>
+                                    <constraint firstAttribute="height" constant="128" id="dIx-Yl-cm1"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="X2M-cV-KcA" firstAttribute="top" secondItem="hDF-Eg-zyv" secondAttribute="bottom" constant="16" id="2Ic-pi-hDX"/>
                             <constraint firstItem="ohQ-3H-CDC" firstAttribute="bottom" secondItem="3Hx-SY-7uG" secondAttribute="bottom" id="58D-ym-5As"/>
                             <constraint firstItem="ohQ-3H-CDC" firstAttribute="trailing" secondItem="hDF-Eg-zyv" secondAttribute="trailing" id="BMj-DB-6kR"/>
-                            <constraint firstItem="3Hx-SY-7uG" firstAttribute="top" secondItem="X2M-cV-KcA" secondAttribute="bottom" constant="16" id="CfR-eu-w4K"/>
                             <constraint firstItem="LYb-ds-PCh" firstAttribute="top" secondItem="ohQ-3H-CDC" secondAttribute="top" constant="16" id="EUF-hU-fAC"/>
-                            <constraint firstItem="X2M-cV-KcA" firstAttribute="leading" secondItem="ohQ-3H-CDC" secondAttribute="leading" id="JBF-qn-XmO"/>
-                            <constraint firstItem="ohQ-3H-CDC" firstAttribute="trailing" secondItem="X2M-cV-KcA" secondAttribute="trailing" id="Usu-ur-FPg"/>
+                            <constraint firstItem="X2M-cV-KcA" firstAttribute="leading" secondItem="ohQ-3H-CDC" secondAttribute="leading" id="Oyz-UG-hly"/>
+                            <constraint firstItem="X2M-cV-KcA" firstAttribute="trailing" secondItem="ohQ-3H-CDC" secondAttribute="trailing" id="R93-Qg-jN9"/>
                             <constraint firstItem="hDF-Eg-zyv" firstAttribute="top" secondItem="LYb-ds-PCh" secondAttribute="bottom" constant="16" id="aIA-U3-m0p"/>
                             <constraint firstItem="ohQ-3H-CDC" firstAttribute="trailing" secondItem="3Hx-SY-7uG" secondAttribute="trailing" id="eRF-Nq-gsV"/>
                             <constraint firstItem="LYb-ds-PCh" firstAttribute="leading" secondItem="ohQ-3H-CDC" secondAttribute="leading" id="gfE-cR-0S1"/>
                             <constraint firstItem="3Hx-SY-7uG" firstAttribute="leading" secondItem="ohQ-3H-CDC" secondAttribute="leading" id="iyy-Dj-fx2"/>
                             <constraint firstItem="hDF-Eg-zyv" firstAttribute="leading" secondItem="ohQ-3H-CDC" secondAttribute="leading" id="lWp-Ex-Xiq"/>
                             <constraint firstItem="ohQ-3H-CDC" firstAttribute="trailing" secondItem="LYb-ds-PCh" secondAttribute="trailing" id="pWf-zZ-ghe"/>
+                            <constraint firstItem="X2M-cV-KcA" firstAttribute="top" secondItem="hDF-Eg-zyv" secondAttribute="bottom" constant="16" id="rMz-0g-2Qj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ohQ-3H-CDC"/>
                     </view>
@@ -188,6 +187,7 @@
                         <outlet property="date" destination="hDF-Eg-zyv" id="EKL-fg-Vek"/>
                         <outlet property="descriptionText" destination="3Hx-SY-7uG" id="1jK-Jx-0jv"/>
                         <outlet property="image" destination="X2M-cV-KcA" id="JX5-IK-H5S"/>
+                        <outlet property="imageHeightConstraint" destination="dIx-Yl-cm1" id="s9f-6M-cXT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zGn-00-3DG" userLabel="First Responder" sceneMemberID="firstResponder"/>

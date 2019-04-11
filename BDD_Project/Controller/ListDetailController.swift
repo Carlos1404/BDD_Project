@@ -17,6 +17,7 @@ class ListDetailController: UIViewController {
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var descriptionText: UITextView!
     @IBOutlet weak var category: UILabel!
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         self.title = itemToEdit?.title

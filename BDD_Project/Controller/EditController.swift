@@ -71,6 +71,7 @@ class EditController: UITableViewController {
             self.currentDate = getCurrentDate()
             self.modificationDate.text = getStringOfDate(date: currentDate)
             self.categoryLabel.text = itemToEdit?.category ?? "Category"
+            self.category = itemToEdit?.category ?? ""
             if let image = itemToEdit?.image {
                 self.image.image = UIImage(data: image)
             }

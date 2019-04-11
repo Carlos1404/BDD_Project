@@ -1,4 +1,5 @@
 import UIKit
+import Firebase
 
 enum PickerViewType {
     case category, sort
@@ -16,9 +17,12 @@ class ListController: UIViewController {
     let coreDataManager = CoreDataManager.instance
     var editIndexPath: Int?
     var categories = [Category]()
+    var sortList: String?
     
     var sortType = ["Date", "Titre"]
     var pickerViewType = PickerViewType.category
+    
+    var rootRef: DatabaseReference?
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddItem" {
@@ -43,6 +47,7 @@ class ListController: UIViewController {
         super.viewDidLoad()
         self.categories = coreDataManager.loadCategories()
         reloadData()
+        rootRef = Database.database().reference()
     }
     
     func reloadData() {
@@ -128,6 +133,7 @@ extension ListController: SecondControllerDelegate {
     func itemDetailViewController(_ controller: EditController, didFinishAddingItemList item: ItemList) {
         reloadData()
         self.categories = coreDataManager.loadCategories()
+        self.rootRef?.child("Items").childByAutoId().setValue(item.toDictionary())
         dismiss(animated: true)
     }
     
@@ -144,11 +150,13 @@ extension ListController: UIPickerViewDataSource, UIPickerViewDelegate{
     
     @IBAction func categoryButton(_ sender: Any) {
         self.pickerViewType = PickerViewType.category
+        self.sortList = self.categories.first?.title
         displayPickerView()
     }
     
     @IBAction func sortButton(_ sender: Any) {
         self.pickerViewType = PickerViewType.sort
+        self.sortList = self.sortType.first
         displayPickerView()
     }
     
@@ -163,9 +171,28 @@ extension ListController: UIPickerViewDataSource, UIPickerViewDelegate{
         let editRadiusAlert = UIAlertController(title: "Choisir", message: "", preferredStyle: UIAlertController.Style.alert)
         editRadiusAlert.setValue(vc, forKey: "contentViewController")
         editRadiusAlert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
-        editRadiusAlert.addAction(UIAlertAction(title: "Réinitialiser", style: .default, handler: { (UIAlertAction) in
-            self.items = CoreDataManager.instance.loadChecklistItems()
+        editRadiusAlert.addAction(UIAlertAction(title: "Valider", style: .default, handler: { (UIAlertAction) in
+            if(self.sortList == "No filter"){
+                self.items = CoreDataManager.instance.loadChecklistItems()
+            } else {
+                if(self.pickerViewType == PickerViewType.category){
+                    let list = CoreDataManager.instance.loadChecklistItems().filter({ item -> Bool in
+                        item.category == self.sortList
+                    })
+                    self.items = list
+                } else {
+                    if self.sortList == "Titre" {
+                        let list = self.items.sorted { $0.title! < $1.title! }
+                        self.items = list
+                    }
+                    else if self.sortList == "Date" {
+                        let list = self.items.sorted { $0.creationDate?.compare($1.creationDate!) == .orderedDescending }
+                        self.items = list
+                    }
+                }
+            }
             self.listTableView.reloadData()
+            self.dismiss(animated: true)
         }))
         self.present(editRadiusAlert, animated: true)
         
@@ -177,38 +204,44 @@ extension ListController: UIPickerViewDataSource, UIPickerViewDelegate{
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if(pickerViewType == PickerViewType.category){
-            return self.categories.count
+            return self.categories.count + 1
         } else {
-            return self.sortType.count
+            return self.sortType.count + 1
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if(pickerViewType == PickerViewType.category){
-            return self.categories[row].title
+            var list = self.categories.filter({ (category: Category) -> Bool in
+                category.title != nil
+            }).map { (category: Category) -> String in
+                return category.title!
+            }
+            list.append("No filter")
+            return list[row]
         } else {
-            return self.sortType[row]
+            var list = self.sortType
+            list.append("No filter")
+            return list[row]
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if(pickerViewType == PickerViewType.category){
-            let list = CoreDataManager.instance.loadChecklistItems().filter({ item -> Bool in
-                item.category == self.categories[row].title
-            })
-            self.items = list
-        } else {
-            if self.sortType[row] == "Titre" {
-                let list = self.items.sorted { $0.title! < $1.title! }
-                self.items = list
+        switch pickerViewType {
+        case PickerViewType.category:
+            var list = self.categories.filter({ (category: Category) -> Bool in
+                category.title != nil
+            }).map { (category: Category) -> String in
+                return category.title!
             }
-            else if self.sortType[row] == "Date" {
-                let list = self.items.sorted { $0.creationDate?.compare($1.creationDate!) == .orderedDescending }
-                self.items = list
-            }
+            list.append("No filter")
+            self.sortList = list[row]
+        case PickerViewType.sort:
+            var list = self.sortType
+            list.append("No filter")
+            self.sortList = list[row]
         }
-        self.listTableView.reloadData()
-        dismiss(animated: true)
     }
     
 }
+

@@ -15,10 +15,13 @@
 		083CD34C22203C090096D4DB /* Second.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 083CD34B22203C090096D4DB /* Second.storyboard */; };
 		083CD3512220460D0096D4DB /* EditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083CD3502220460D0096D4DB /* EditController.swift */; };
 		083CD35322205C370096D4DB /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083CD35222205C370096D4DB /* ListItemCell.swift */; };
+		085B2004225F1C75001F2B33 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 085B2003225F1C75001F2B33 /* GoogleService-Info.plist */; };
 		0889E8892251EEA9005308EC /* CategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889E8882251EEA9005308EC /* CategoryController.swift */; };
 		08CB51A2225B43A4001E679F /* ListDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CB51A1225B43A4001E679F /* ListDetailController.swift */; };
+		08CD98ED225F617D009FBEC8 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD98EC225F617D009FBEC8 /* ItemList.swift */; };
 		08EA18A1223F8B9B004D3D93 /* DataBase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08EA189F223F8B9B004D3D93 /* DataBase.xcdatamodeld */; };
 		08EA18A3223F9233004D3D93 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EA18A2223F9233004D3D93 /* CoreDataManager.swift */; };
+		C6D84A23564D00D0A0C6D3F2 /* Pods_BDD_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77944773547E91523971D8A7 /* Pods_BDD_Project.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,10 +35,15 @@
 		083CD34B22203C090096D4DB /* Second.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Second.storyboard; sourceTree = "<group>"; };
 		083CD3502220460D0096D4DB /* EditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditController.swift; sourceTree = "<group>"; };
 		083CD35222205C370096D4DB /* ListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
+		085B2003225F1C75001F2B33 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0889E8882251EEA9005308EC /* CategoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryController.swift; sourceTree = "<group>"; };
 		08CB51A1225B43A4001E679F /* ListDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailController.swift; sourceTree = "<group>"; };
+		08CD98EC225F617D009FBEC8 /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 		08EA18A0223F8B9B004D3D93 /* DataBase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataBase.xcdatamodel; sourceTree = "<group>"; };
 		08EA18A2223F9233004D3D93 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		0E989D4DA890E2D65AD88166 /* Pods-BDD_Project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BDD_Project.release.xcconfig"; path = "Pods/Target Support Files/Pods-BDD_Project/Pods-BDD_Project.release.xcconfig"; sourceTree = "<group>"; };
+		77944773547E91523971D8A7 /* Pods_BDD_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BDD_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		802B58B5FC8CB44F1003913E /* Pods-BDD_Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BDD_Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BDD_Project/Pods-BDD_Project.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6D84A23564D00D0A0C6D3F2 /* Pods_BDD_Project.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +63,8 @@
 			children = (
 				083CD333221FEF1B0096D4DB /* BDD_Project */,
 				083CD332221FEF1B0096D4DB /* Products */,
+				79373520BDE26DB42729B36F /* Pods */,
+				7660999D9379F65F90F8AB7A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +86,7 @@
 				083CD346221FEF320096D4DB /* View */,
 				083CD334221FEF1B0096D4DB /* AppDelegate.swift */,
 				083CD33B221FEF1C0096D4DB /* Assets.xcassets */,
+				085B2003225F1C75001F2B33 /* GoogleService-Info.plist */,
 				083CD340221FEF1C0096D4DB /* Info.plist */,
 			);
 			path = BDD_Project;
@@ -105,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				083CD35222205C370096D4DB /* ListItemCell.swift */,
+				08CD98EC225F617D009FBEC8 /* ItemList.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -125,6 +138,23 @@
 			path = "Database Model";
 			sourceTree = "<group>";
 		};
+		7660999D9379F65F90F8AB7A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				77944773547E91523971D8A7 /* Pods_BDD_Project.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		79373520BDE26DB42729B36F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				802B58B5FC8CB44F1003913E /* Pods-BDD_Project.debug.xcconfig */,
+				0E989D4DA890E2D65AD88166 /* Pods-BDD_Project.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +162,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 083CD343221FEF1C0096D4DB /* Build configuration list for PBXNativeTarget "BDD_Project" */;
 			buildPhases = (
+				949B8D0AA7F883272117CCC6 /* [CP] Check Pods Manifest.lock */,
 				083CD32D221FEF1B0096D4DB /* Sources */,
 				083CD32E221FEF1B0096D4DB /* Frameworks */,
 				083CD32F221FEF1B0096D4DB /* Resources */,
+				656760E7A20D3EB4346F7012 /* [CP] Embed Pods Frameworks */,
+				451B0F6661195574C57CC38D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -185,12 +218,112 @@
 			files = (
 				083CD34C22203C090096D4DB /* Second.storyboard in Resources */,
 				083CD33F221FEF1C0096D4DB /* LaunchScreen.storyboard in Resources */,
+				085B2004225F1C75001F2B33 /* GoogleService-Info.plist in Resources */,
 				083CD33C221FEF1C0096D4DB /* Assets.xcassets in Resources */,
 				083CD33A221FEF1B0096D4DB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		451B0F6661195574C57CC38D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BDD_Project/Pods-BDD_Project-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAnonymousAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseFacebookAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebasePhoneAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseTwitterAuthUI.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAnonymousAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseFacebookAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebasePhoneAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseTwitterAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BDD_Project/Pods-BDD_Project-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		656760E7A20D3EB4346F7012 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BDD_Project/Pods-BDD_Project-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BDD_Project/Pods-BDD_Project-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		949B8D0AA7F883272117CCC6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BDD_Project-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		083CD32D221FEF1B0096D4DB /* Sources */ = {
@@ -204,6 +337,7 @@
 				083CD335221FEF1B0096D4DB /* AppDelegate.swift in Sources */,
 				08EA18A3223F9233004D3D93 /* CoreDataManager.swift in Sources */,
 				083CD3512220460D0096D4DB /* EditController.swift in Sources */,
+				08CD98ED225F617D009FBEC8 /* ItemList.swift in Sources */,
 				0889E8892251EEA9005308EC /* CategoryController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -348,6 +482,7 @@
 		};
 		083CD344221FEF1C0096D4DB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 802B58B5FC8CB44F1003913E /* Pods-BDD_Project.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -365,6 +500,7 @@
 		};
 		083CD345221FEF1C0096D4DB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E989D4DA890E2D65AD88166 /* Pods-BDD_Project.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
