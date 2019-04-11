@@ -29,10 +29,11 @@ class ListDetailController: UIViewController {
                 self.image.image = UIImage(data: image)
                 self.imageHeightConstraint.constant = UIScreen.main.bounds.height
             }
+            self.descriptionText.text = itemToEdit?.descriptions
         } else {
             self.imageHeightConstraint.constant = 0
+            self.descriptionText.text = itemToEdit?.descriptions
         }
-        self.descriptionText.text = itemToEdit?.descriptions
     }
     
     func getStringOfDate(date: Date?) -> String {
